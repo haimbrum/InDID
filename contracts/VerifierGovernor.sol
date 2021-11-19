@@ -15,11 +15,11 @@ contract VerifierGovernor is Governor, GovernorCompatibilityBravo, GovernorVotes
     {}
 
     function votingDelay() public pure override returns (uint256) {
-        return 6575;  // 1 day
+        return 0;  // 1 day
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 46027; // 1 week
+        return 2; // 1 week
     }
 
     function proposalThreshold() public pure override returns (uint256) {
