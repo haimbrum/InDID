@@ -7,23 +7,40 @@ import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFractio
 import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
 
 contract VerifierGovernor is Governor, GovernorCompatibilityBravo, GovernorVotes, GovernorVotesQuorumFraction, GovernorTimelockControl {
-    constructor(ERC20Votes  _token, TimelockController _timelock) 
+    constructor(ERC20Votes  _token, 
+        TimelockController _timelock, 
+        uint256 _votingDelay, 
+        uint256 _votingPeriod, 
+        uint256 _proposalThreshold
+    ) 
         Governor("VerifierGovernor") 
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(4)
         GovernorTimelockControl(_timelock)
-    {}
-
-    function votingDelay() public pure override returns (uint256) {
-        return 0;  // 1 day
+    {
+        s_votingDelay = _votingDelay;
+        s_votingPeriod = _votingPeriod;
+        s_proposalThreshold = _proposalThreshold;
     }
 
-    function votingPeriod() public pure override returns (uint256) {
-        return 2; // 1 week
+    uint256 private s_votingDelay;
+    uint256 private s_votingPeriod;
+    uint256 private s_proposalThreshold;
+
+    function COUNTING_MODE() public pure override(GovernorCompatibilityBravo, IGovernor) returns (string memory) {
+        return 'support=bravo&quorum=bravo';
     }
 
-    function proposalThreshold() public pure override returns (uint256) {
-        return 0;
+    function votingDelay() public view override returns (uint256) {
+        return s_votingDelay;  // 1 day
+    }
+
+    function votingPeriod() public view override returns (uint256) {
+        return s_votingPeriod; // 1 week
+    }
+
+    function proposalThreshold() public view override returns (uint256) {
+        return s_proposalThreshold;
     }
 
     function quorum(uint256 blockNumber)
