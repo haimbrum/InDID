@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "assets/jss/material-kit-react/views/componentsSections/typographyStyle.js";
 
 import {
+  Button,
   makeStyles,
   Paper,
   Table,
@@ -14,12 +15,25 @@ import {
 import AddNewProposal from "./AddNewProposal";
 import SearchVerifiedEntity from "./SearchVerifiedEntity";
 import useWeb3Service from "./web3Service";
+import { ProposalState } from "./enums";
+import VerificationDataDialog from "./verficationDataDialog";
+
+const SUCCEDEED_STATE = 4;
+const QUEUED_STATE = 5;
 
 const useStyles = makeStyles(styles);
 
 const DaoWizard = () => {
   const classes = useStyles();
-  const { getVerifiedEntity, propose, proposals, loading } = useWeb3Service();
+  const {
+    getVerifiedEntity,
+    propose,
+    castVote,
+    executePropose,
+    queuePropose,
+    proposals,
+    loading,
+  } = useWeb3Service();
 
   const [verifiedEntityResult, setVerifiedEntityResult] = useState();
 
@@ -49,6 +63,7 @@ const DaoWizard = () => {
                   <TableCell>State</TableCell>
                   <TableCell>Vote For</TableCell>
                   <TableCell>Vote Against</TableCell>
+                  <TableCell>Vote Abstain</TableCell>
                   <TableCell>Total Votes</TableCell>
                 </TableRow>
               </TableHead>
@@ -56,17 +71,43 @@ const DaoWizard = () => {
                 {proposals &&
                   proposals.map((proposal) => (
                     <TableRow key={proposal.proposalId}>
-                      <TableCell>{proposal.description}</TableCell>
-                      <TableCell>{proposal.state}</TableCell>
-                      <TableCell>{proposal.voresFor}</TableCell>
-                      <TableCell>{proposal.votesAgainst}</TableCell>
+                      <TableCell>
+                        <VerificationDataDialog
+                          description={proposal.description}
+                          data={proposal.data}
+                          onCastVote={(support) =>
+                            castVote(proposal.proposalId, support)
+                          }
+                        />
+                      </TableCell>
+                      <TableCell>
+                        {ProposalState[proposal.state]}
+                        {proposal.state == SUCCEDEED_STATE && (
+                          <Button
+                            variant="outlined"
+                            onClick={() => queuePropose(proposal.proposalId)}
+                          >
+                            Queue
+                          </Button>
+                        )}
+                        {proposal.state == QUEUED_STATE && (
+                          <Button
+                            variant="outlined"
+                            onClick={() => executePropose(proposal.proposalId)}
+                          >
+                            Execute
+                          </Button>
+                        )}
+                      </TableCell>
+                      <TableCell>{proposal.forVotes}</TableCell>
+                      <TableCell>{proposal.againstVotes}</TableCell>
+                      <TableCell>{proposal.abstainVotes}</TableCell>
                       <TableCell>{proposal.totalVotes}</TableCell>
                     </TableRow>
                   ))}
               </TableBody>
             </Table>
           </TableContainer>
-          <div className={classes.typo}></div>
           <AddNewProposal onAddNewProposal={handleAddNewProposal} />
           <SearchVerifiedEntity
             onSearchClick={handleSearchEntityClick}
