@@ -66,6 +66,10 @@ function useWeb3Service() {
     governanceInstance.events.VoteCast().on("data", _onVoteCast);
   };
 
+  window.ethereum.on("accountsChanged", async (accounts) => {
+    setAccounts(accounts);
+  });
+
   const _initializeContracts = async () => {
     try {
       const web3 = await getWeb3();
