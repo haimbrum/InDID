@@ -17,8 +17,10 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import { blue, grey, red } from "@material-ui/core/colors";
+import { blue, green, grey, red, yellow } from "@material-ui/core/colors";
 import { SupportType } from "./enums";
+import EntityData from "./EntityData";
+import { KeyboardReturn } from "@material-ui/icons";
 
 const useStyles = makeStyles(() => ({
   itemCell: {
@@ -69,11 +71,12 @@ function VerificationDataDialog({ description, data, onCastVote }) {
           Do you confirm the identity of the address: {data.address}?
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>{data.details}</DialogContentText>
+          {/* <DialogContentText>{data.details}</DialogContentText> */}
+          <EntityData data={data.details}/>
           <div className={classes.voteActions}>
             <Tooltip title="Verify User" aria-label="verify user">
               <IconButton
-                style={{ color: blue[500] }}
+                style={{ color: green[500] }}
                 onClick={() => handleCastVote(SupportType.FOR)}
               >
                 <VerifiedUserIcon fontSize="large" />
@@ -93,6 +96,14 @@ function VerificationDataDialog({ description, data, onCastVote }) {
                 onClick={() => handleCastVote(SupportType.ABSTAIN)}
               >
                 <BlockIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delegate" aria-label="add">
+              <IconButton
+                style={{ color: blue[500] }}
+                onClick={() => handleCastVote(SupportType.ABSTAIN)}
+              >
+                <KeyboardReturn fontSize="large" />
               </IconButton>
             </Tooltip>
           </div>

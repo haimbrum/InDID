@@ -2,6 +2,9 @@ import { container } from "assets/jss/material-kit-react.js";
 
 const componentsStyle = {
   container,
+  section: {
+    padding: "100px 0",
+  },
   brand: {
     color: "#FFFFFF",
     textAlign: "left",
@@ -11,6 +14,21 @@ const componentsStyle = {
     fontWeight: "600",
     display: "inline-block",
     position: "relative",
+    width: "54%",
+    lineHeight: 1,
+    margin: "17px 0",
+  },
+  sectionTitle: {
+    color: "#09c3ab",
+    fontFamily: "Roboto Slab",
+    fontWeight: 700,
+  },
+  sectionDescription: {
+    color: "#e0e0e0",
+    '& > h4': {
+      lineHeight: "1.55em",
+      margin: "40px 0",
+    },
   },
   subtitle: {
     fontSize: "1.313rem",
@@ -33,6 +51,9 @@ const componentsStyle = {
   },
   textCenter: {
     textAlign: "center",
+  },
+  mainImage: {
+    position: "absolute",
   },
 };
 

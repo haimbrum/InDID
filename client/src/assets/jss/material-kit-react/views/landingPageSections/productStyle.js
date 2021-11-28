@@ -13,7 +13,10 @@ const productStyle = {
     textDecoration: "none",
   },
   description: {
-    color: "#999",
+    color: "#e0e0e0",
+  },
+  featuresWrapper: {
+    marginTop: "40px",
   },
 };
 

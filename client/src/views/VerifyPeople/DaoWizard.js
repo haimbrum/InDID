@@ -17,9 +17,14 @@ import SearchVerifiedEntity from "./SearchVerifiedEntity";
 import useWeb3Service from "./web3Service";
 import { ProposalState } from "./enums";
 import VerificationDataDialog from "./verficationDataDialog";
+import DaoTabs from './DaoTabs';
+import { classExpression } from "@babel/types";
 
 const SUCCEDEED_STATE = 4;
 const QUEUED_STATE = 5;
+
+const ASK_FOR_VERIFY_TAB = 0;
+const VALIDATE_ENTITY_TAB = 1;
 
 const useStyles = makeStyles(styles);
 
@@ -36,26 +41,39 @@ const DaoWizard = () => {
   } = useWeb3Service();
 
   const [verifiedEntityResult, setVerifiedEntityResult] = useState();
+  const [currentTab, setCurrentTab] = useState(1);
+
+  const handleTabChange = (event, newValue) => {
+    setCurrentTab(newValue);
+  };
 
   const handleSearchEntityClick = async (address) => {
     const res = await getVerifiedEntity(address);
-    setVerifiedEntityResult(res);
+    console.log("getVerifiedEntity result: ", res)
+    if (res === "") {
+      setVerifiedEntityResult("NO_RESULTS");
+    } else {
+      setVerifiedEntityResult(res);
+    }
   };
 
   const handleAddNewProposal = (entity) => {
     propose(entity);
   };
 
-  return loading ? (
-    <div>Loading Web3, accounts, and contract...</div>
-  ) : (
+  return (
     <div className={classes.section}>
+      {loading && <div>Loading Web3, accounts, and contract...</div>}
       <div className={classes.container}>
         <div id="typography">
-          <div className={classes.title}>
-            <h2>Proposals</h2>
-          </div>
-          <TableContainer component={Paper}>
+        <SearchVerifiedEntity
+            onSearchClick={handleSearchEntityClick}
+            verifiedEntityResult={verifiedEntityResult}
+          />
+          
+          <DaoTabs onChange={handleTabChange} value={currentTab} />
+          {currentTab === ASK_FOR_VERIFY_TAB && <AddNewProposal onAddNewProposal={handleAddNewProposal} />}
+           {currentTab === VALIDATE_ENTITY_TAB  && <TableContainer className={classes.tableContainer} component={Paper}>
             <Table aria-label="collapsible table">
               <TableHead>
                 <TableRow>
@@ -107,12 +125,9 @@ const DaoWizard = () => {
                   ))}
               </TableBody>
             </Table>
-          </TableContainer>
-          <AddNewProposal onAddNewProposal={handleAddNewProposal} />
-          <SearchVerifiedEntity
-            onSearchClick={handleSearchEntityClick}
-            verifiedEntityResult={verifiedEntityResult}
-          />
+          </TableContainer>}
+         
+          
         </div>
       </div>
     </div>

@@ -15,9 +15,14 @@ import Parallax from "components/Parallax/Parallax.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 
 import styles from "assets/jss/material-kit-react/views/components.js";
-import DaoWizard from "./DaoWizard.js";
+import FeaturesSection from "./FeaturesSection";
+import ArchitectureImage from 'assets/img/architecture.png'
+import Button from "components/CustomButtons/Button.js";
+import { LibraryBooks } from "@material-ui/icons";
+// import Network from 'assets/img/network.png'
 
 const useStyles = makeStyles(styles);
+
 
 export default function Main(props) {
   const classes = useStyles();
@@ -25,9 +30,8 @@ export default function Main(props) {
   return (
     <div>
       <Header
-        brand="InDID"
+        brand="TruBuddy"
         rightLinks={<HeaderLinks />}
-        fixed
         color="transparent"
         changeColorOnScroll={{
           height: 400,
@@ -35,26 +39,58 @@ export default function Main(props) {
         }}
         {...rest}
       />
-      <Parallax image={require("assets/img/landing-bg.jpg").default}>
+      <Parallax >
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
               <div className={classes.brand}>
+                {/* <img className={classes.mainImage} src={Network} width="750px"/> */}
                 <h1 className={classes.title}>
-                  Decentralized Identity Verifier
+                  Decentralized Trust Based Network
                 </h1>
                 <h3 className={classes.subtitle}>
-                  Start earning and impact on on-chain truth
+                  TruBuddy is a platform with the aim to bridge between blockchain contracts and off-chain entities and to decentralize the information regarding those entities.
                 </h3>
               </div>
             </GridItem>
           </GridContainer>
         </div>
       </Parallax>
-
-      <div className={classNames(classes.main, classes.mainRaised)}>
-        <DaoWizard />
+      <div className={classes.container}>
+        <FeaturesSection />
       </div>
+      <div className={classes.section}>
+        <div className={classes.container}>
+
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={6}>
+              <img src={ArchitectureImage} width="100%" />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={6}>
+              <h2 className={classes.sectionTitle}>Overview</h2>
+              <div className={classes.sectionDescription}>
+
+                <h4 >
+                  TruBuddy is implemented as a DAO (Decentralized Autonomous Organization) which allow to stakers (validators) to verify off-chain entities and store the entities documents over IPFS protocol using Chainlink oracles.
+                </h4>
+                <h4>
+                  TruBuddy validators functioning as DAO stakers. Each time an entity requires verification, validators are chosen at random based on a rating to verify that entity.
+                </h4>
+                <Button
+                  href="https://docs.trubdy.net/"
+                  target="_blank"
+                  color="primary"
+                  className={classes.navLink}
+                >
+                  <LibraryBooks /> Docs
+                </Button>
+              </div>
+
+            </GridItem>
+          </GridContainer>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );

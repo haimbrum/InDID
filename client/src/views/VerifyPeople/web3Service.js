@@ -99,10 +99,10 @@ function useWeb3Service() {
       setVerifiedDBInstance(verifiedDBInstance);
       setLoading(false);
     } catch (error) {
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`
+      alert("Can't load the contracts. please connect to 'Kovan Test Network' and try again");
+      console.error(
+        `Failed to load web3, accounts, or contract. details: ${error}`
       );
-      console.error(error);
     }
   };
 
@@ -196,6 +196,7 @@ function useWeb3Service() {
         descriptionHash
       )
       .send({ from: accounts[0] });
+    await _fetchProposals();
   };
 
   const executePropose = async (proposalId) => {
@@ -219,6 +220,7 @@ function useWeb3Service() {
         descriptionHash
       )
       .send({ from: accounts[0] });
+      await _fetchProposals();
   };
 
   return {

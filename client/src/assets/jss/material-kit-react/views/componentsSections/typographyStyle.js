@@ -3,10 +3,16 @@ import { container, title } from "assets/jss/material-kit-react.js";
 import imagesStyles from "assets/jss/material-kit-react/imagesStyles.js";
 
 const typographyStyle = {
+  tableContainer: {
+    margin: "30px 0"
+  },
   section: {
     padding: "70px 0",
   },
-  container,
+  container: {
+    ...container,
+    minHeight: "82vh"
+  },
   space50: {
     height: "50px",
     display: "block",
