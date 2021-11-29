@@ -50,6 +50,20 @@ The validators are arbitrarily selected based on their rating. once they choosed
 4. Abstain
 
 ## Technical Architecture
+TruBuddy into 5 contract.
+
+- GovernanceToken - extends REC20 handle voting power and delegation.
+- GovernanceController - handle the governance proposals and voting flow.
+- GovernanceTimeLock - controlled by GovernanceController the executed method.
+- Verified DB - storing lookup between address and IPFS document hash. can be read by everyone but can be set only by GovernanceTimeLock.
+- IPFSChainlinkClient - providing an interface to interact with IPFS by calling IPFS node operator (currently is missing. will be added as soon as I find a solution to run a test node )
+ 
+Web3 client is directly interacting with IPFSChainlinkClient  and getting the CID after successfully stores the data.
+
+Immediately upon receipt of CID, Web3 initiate proposal to validate the the relation between the requested address and CID. 
+
+When the vote is successful, an addingVerifiedEntity method is scheduled with the relevant address and CID.
+
 ![TruBuddy Architecture ](http://trubdy.net/architecture.png)
 ## Install
 ### Contracts
