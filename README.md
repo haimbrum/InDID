@@ -1,14 +1,14 @@
 # TruBuddy
 TruBuddy is a decentralized trust based network that aims is to solve the trust issue between blockchain contracts and off-chain entities and decentralize the information regarding those entities.
 
-# Try It Out
+## Try It Out
 You can try the demo app here: http://trubdy.net/verify-people.
 
 **Please make sure that you are connected to Rinkeby test network.**
 
 If you need a test tokens to start validating you can oppen an issue or contact me.
 
-# Doc
+
 ## Introduction
 TruBuddy is a platform with the aim to bridge between blockchain contracts and off-chain entities and to decentralize the information regarding those entities.
 
@@ -51,25 +51,25 @@ The validators are arbitrarily selected based on their rating. once they choosed
 
 ## Technical Architecture
 ![TruBuddy Architecture ](http://trubdy.net/architecture.png)
-# Install
-## Contracts
+## Install
+### Contracts
 ```
 npm install
 ```
 
-## Client
+### Client
 ```
 cd client
 npm install
 ```
 
-# Deploy contracts
+## Deploy contracts
 You need truffle to be installed on your machine
 ```
 truffle migrate
 ```
 
-# IPFS Chainlink External Adapter
+## IPFS Chainlink External Adapter
 Since we need to store the verified entities details, we do not need to hold the actual data but only to store the hash (Address -> Hash lookup).
 
 We using IPFS Chainlink operator node in order to store the actual data.  
