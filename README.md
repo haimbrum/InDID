@@ -70,4 +70,11 @@ truffle migrate
 ```
 
 # IPFS Chainlink External Adapter
-TBD
+Since we need to store the entities verified details, we do not ne to hold the actual data but only to store the hash.
+
+So we using IPFS Chainlink operator node in order to store the actual data.
+
+An external adapter for that can be found on Chainlink's link: https://market.link/adapters/cff4fca9-749a-4b4e-b025-6f4e90796780
+
+Here is the source code: https://github.com/haimbrum/IPFS-Chainlnk-External-Adapter
+
