@@ -3,7 +3,9 @@ TruBuddy is a decentralized trust based network that aims is to solve the trust 
 
 # Try It Out
 You can try the demo app here: http://trubdy.net/verify-people.
-just connect your wallet to Kovan test network.
+
+**Please make sure that you are connected to Rinkeby test network.**
+
 If you need a test tokens to start validating you can oppen an issue or contact me.
 
 # Doc
