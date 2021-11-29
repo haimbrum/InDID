@@ -1,4 +1,6 @@
 const path = require("path");
+require("dotenv").config({path:"./.env"})
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -7,6 +9,12 @@ module.exports = {
   networks: {
     develop: {
       port: 8545
+    },
+    kovan: {
+      provider: function() {
+        return new HDWalletProvider(process.env.MEMONIC, "https://kovan.infura.io/v3/e7486e48766843f9a31e0fac5776549c", 0)
+      },
+      network_id: 42
     }
   },
   compilers: {
