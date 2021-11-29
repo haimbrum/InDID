@@ -74,6 +74,8 @@ Since we need to store the verified entities details, we do not need to hold the
 
 We using IPFS Chainlink operator node in order to store the actual data.  
 
+If you are a node operator this may be a good opportunity for you - by helping us to decentralized you can enjoy passive income for any projects that use IPFS.
+
 An external adapter for that can be found on Chainlink's link: https://market.link/adapters/cff4fca9-749a-4b4e-b025-6f4e90796780
 
 Here is the source code: https://github.com/haimbrum/IPFS-Chainlnk-External-Adapter
