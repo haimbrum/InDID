@@ -50,7 +50,7 @@ The validators are arbitrarily selected based on their rating. once they choosed
 4. Abstain
 
 ## Technical Architecture
-TruBuddy into 5 contract.
+TruBuddy is divided into 5 contract.
 
 - GovernanceToken - extends REC20 handle voting power and delegation.
 - GovernanceController - handle the governance proposals and voting flow.
